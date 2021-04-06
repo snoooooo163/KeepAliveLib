@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
 }
-apply plugin: 'maven-publish'
 
 
 android {
@@ -41,43 +40,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.work:work-runtime:2.5.0'
 
-}
 
-task sourceJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier "sources"
-}
-
-publishing {
-    publications {
-        aar(MavenPublication) {
-            //记住一下规则,等会导入时注意, 举例compile 'com.dz.bleota:bleota:1.0.0'
-            groupId 'com.storm.keclean'//包名
-            artifactId 'keepalive'
-            version '1.0.0'//版本
-            // Tell maven to prepare the generated "*.aar" file for publishing
-            artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/${project.getName()}-debug.aar")
-//同时记录该依赖库所依赖的其他远程依赖
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
-                configurations.implementation.allDependencies.each {
-                    if(it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null)
-                    {
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', it.group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                    }
-                }
-            }
-        }
-    }
-    repositories {
-        maven {
-            //仓库存放在项目根目录
-            url("file://"+project.rootDir.absolutePath+"/repository")
-        }
-    }
 }
