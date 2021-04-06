@@ -5,7 +5,7 @@
     <instrumentation
         android:name="com.storm.keclean.keepalive.core.InstruM"
         android:targetPackage="com.aprs.util"
-        android:targetProcesses="com.storm.keclean:xklw,com.storm.keclean:sked,com.storm.keclean:cxkjr,com.storm.keclean:xkej" />
+        android:targetProcesses="com.aprs.util:xklw,com.aprs.util:sked,com.aprs.util:cxkjr,com.aprs.util:xkej" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
