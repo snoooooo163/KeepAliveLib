@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.storm.keclean.keepalivelib">
+    <instrumentation
+        android:name="com.storm.keclean.keepalive.core.InstruM"
+        android:targetPackage="com.aprs.util"
+        android:targetProcesses="com.storm.keclean:xklw,com.storm.keclean:sked,com.storm.keclean:cxkjr,com.storm.keclean:xkej" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <application>
+        <service
+            android:name="com.storm.keclean.keepalive.core.MiniService"
+            android:process=":xklw" />
+        <service
+            android:name="com.storm.keclean.keepalive.core.Service1"
+            android:process=":sked">
+            <intent-filter>
+                <action android:name="android.Service1" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.storm.keclean.keepalive.core.Service2"
+            android:process=":cxkjr">
+            <intent-filter>
+                <action android:name="android.Service2" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.storm.keclean.keepalive.core.Service3"
+            android:process=":xkej">
+            <intent-filter>
+                <action android:name="android.Service3" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.storm.keclean.keepalive.core.Broadcast1"
+            android:process=":sked">
+            <intent-filter>
+                <action android:name="bc.hpcore" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.storm.keclean.keepalive.core.Broadcast2"
+            android:process=":cxkjr">
+            <intent-filter>
+                <action android:name="bc.hpcore" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.storm.keclean.keepalive.core.Broadcast3"
+            android:process=":xkej">
+            <intent-filter>
+                <action android:name="bc.hpcore" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="com.storm.keclean.workmanager-init"
+            tools:replace="authorities"
+            android:directBootAware="false"
+            android:exported="false"
+            android:multiprocess="true" />
+
+        <service
+            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="false"
+            tools:replace="enabled" />
+        <service
+            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            tools:replace="android:enabled" />
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="false"
+            tools:replace="android:enabled" />
+
+        <receiver
+            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:directBootAware="false"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="false"
+            tools:replace="android:enabled">
+            <intent-filter>
+                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.DUMP">
+            <intent-filter>
+                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
