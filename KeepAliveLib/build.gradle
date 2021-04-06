@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
 }
 
-
 android {
     compileSdkVersion 28
     buildToolsVersion "30.0.3"

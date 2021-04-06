@@ -1,0 +1,3 @@
+include ':KeepAliveLib'
+include ':app'
+rootProject.name = "TestAlive"
